@@ -7,130 +7,130 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore_App.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class CustomerController : ControllerBase
+   [Route("api/[controller]")]
+   [ApiController]
+   public class CustomerController : ControllerBase
+   {
+     private readonly ICustomerService _customerService;
+
+     public CustomerController(ICustomerService customerService)
+     {
+
+	_customerService = customerService;
+     }
+
+      [HttpGet("{id}")]
+
+      public async Task<ActionResult<CustomerDto>> GetCustomerByIdAsync(int? id)
+      {
+	 try
+	 {
+	     if (id == 0)
+	     {
+		return BadRequest("Id can not be null.");
+	     }
+
+	     if (id <= 0)
+	     {
+		return BadRequest("Id can not be a negative number");
+	     }
+
+	     CustomerDto customerDto = await _customerService.GetCustomerByIdAsync(id);
+
+	     return Ok(customerDto);
+	  }
+	 catch (Exception)
+	 {
+	    return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
+	 }
+
+      }
+
+        [HttpGet]
+
+        public async Task<ActionResult<List<CustomerDto>>> GetAllCustomersAsync()
 	{
-		private readonly ICustomerService _customerService;
+	   try
+	    {
+	       return Ok(await _customerService.GetAllCustomersAsync());
+	    }
+	   catch (Exception)
+	    {
+	      return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
+	    }
+	 }
 
-		public CustomerController(ICustomerService customerService)
+	 [HttpPost]
+
+	 public async Task<ActionResult> CreateCustomerAsync([FromBody]CreateCustomerDto customer)
+	  {
+		try
 		{
+		   if (customer == null || customer.FirstName == null || customer.LastName == null || customer.Address == null)
+		    {
+			return BadRequest("Invalid input");
+		    }
 
-			_customerService = customerService;
+		    await _customerService.CreateCustomerAsync(customer);
+		    return StatusCode(StatusCodes.Status201Created, "Customer added");
 		}
-
-		[HttpGet("{id}")]
-
-		public async Task<ActionResult<CustomerDto>> GetCustomerByIdAsync(int? id)
+		catch (Exception)
 		{
-			try
-			{
-				if (id == 0)
-				{
-					return BadRequest("Id can not be null.");
-				}
-
-				if (id <= 0)
-				{
-					return BadRequest("Id can not be a negative number");
-				}
-
-				CustomerDto customerDto = await _customerService.GetCustomerByIdAsync(id);
-
-				return Ok(customerDto);
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
-			}
-
+		  return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
 		}
+	   }
 
-		[HttpGet]
+	  [HttpDelete("{id}")]
 
-		public async Task<ActionResult<List<CustomerDto>>> GetAllCustomersAsync()
-		{
-			try
-			{
-				return Ok(await _customerService.GetAllCustomersAsync());
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
-			}
-		}
+	  public async Task<ActionResult> DeleteCustomerAsync(int id)
+	   {
+		try
+		 {
+		     if (id == 0)
+		     {
+			return BadRequest("Id can not be null");
+		     }
 
-		[HttpPost]
+		     if (id <= 0)
+		     {
+			return BadRequest("Id can not be a negative number");
+		     }
 
-		public async Task<ActionResult> CreateCustomerAsync([FromBody]CreateCustomerDto customer)
-		{
-			try
-			{
-				if (customer == null || customer.FirstName == null || customer.LastName == null || customer.Address == null)
-				{
-					return BadRequest("Invalid input");
-				}
+		     await _customerService.DeleteCustomerAsync(id);
 
-				await _customerService.CreateCustomerAsync(customer);
-				return StatusCode(StatusCodes.Status201Created, "Customer added");
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
-			}
-		}
+		     return Ok();
+		  }
+		  catch (Exception)
+		   {
+			return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
+		   }
 
-		[HttpDelete("{id}")]
+	     }
 
-		public async Task<ActionResult> DeleteCustomerAsync(int id)
-		{
-			try
-			{
-				if (id == 0)
-				{
-					return BadRequest("Id can not be null");
-				}
+	     [HttpPatch("{id}")]
 
-				if (id <= 0)
-				{
-					return BadRequest("Id can not be a negative number");
-				}
+	     public async Task<ActionResult> UpdateCustomerAsync([FromBody]CreateCustomerDto createCustomerDto, int id)
+	     {
+		   try
+		    {
+			  if (id == 0)
+			  {
+				return BadRequest("Id can not be null");
+			  }
 
-				await _customerService.DeleteCustomerAsync(id);
+			  if (id <= 0)
+			  {
+				return BadRequest("Id can not be a negative number");
+			  }
 
-				return Ok();
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
-			}
+			  await _customerService.UpdateCustomerAsync(createCustomerDto, id);
 
-		}
-
-		[HttpPatch("{id}")]
-
-		public async Task<ActionResult> UpdateCustomerAsync([FromBody]CreateCustomerDto createCustomerDto, int id)
-		{
-			try
-			{
-				if (id == 0)
-				{
-					return BadRequest("Id can not be null");
-				}
-
-				if (id <= 0)
-				{
-					return BadRequest("Id can not be a negative number");
-				}
-
-				await _customerService.UpdateCustomerAsync(createCustomerDto, id);
-
-				return Ok();
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
-			}
-		}
+			  return Ok();
+		     }
+		   catch (Exception)
+		   {
+			return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
+		   }
+	     }
 	}
 }
