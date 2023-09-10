@@ -34,9 +34,9 @@ namespace BookStore_App.Controllers
 			    return BadRequest("Id can not be a negative number");
 			}
 
-		        AuthorDto authorDto = await _authorService.GetAuthorByIdAsync(id);
+		     AuthorDto authorDto = await _authorService.GetAuthorByIdAsync(id);
 
-			return Ok(authorDto);
+		     return Ok(authorDto);
 		  }
 		catch (Exception)
 		 {
