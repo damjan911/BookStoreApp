@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.DTOs.BookDTOs
 {
-	public class CreateBookDto
-	{
-		public string? Title { get; set; }
+   public class CreateBookDto
+   {
+	public string? Title { get; set; }
 
-		public int? ISBN { get; set; }
+	public int? ISBN { get; set; }
 
-		public Genre Genre { get; set; }
+	public Genre Genre { get; set; }
 
-		public int AuthorId { get; set; }
-	}
+	public int AuthorId { get; set; }
+   }
 }
