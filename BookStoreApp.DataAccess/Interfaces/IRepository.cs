@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.DataAccess.Interfaces
 {
-	public interface IRepository<T>
-	{
-		Task<T> GetByIdAsync (int? id);
+    public interface IRepository<T>
+    {
+	 Task<T> GetByIdAsync (int? id);
 
-		Task<List<T>> GetAllAsync ();
-		Task CreateAsync(T entity);
+	 Task<List<T>> GetAllAsync ();
+  
+	 Task CreateAsync(T entity);
 
-		Task UpdateAsync(T entity);
+	 Task UpdateAsync(T entity);
 
-		Task DeleteAsync(int? id);
-	}
+	 Task DeleteAsync(int? id);
+     }
 }
