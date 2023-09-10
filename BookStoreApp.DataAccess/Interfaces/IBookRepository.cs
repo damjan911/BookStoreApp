@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.DataAccess.Interfaces
 {
-	public interface IBookRepository : IRepository<Book>
-	{
-		List<Book> FilterBooks(int authorId,int isbn, IEnumerable<BookCustomer> BookCustomers);
-	}
+    public interface IBookRepository : IRepository<Book>
+    {
+	List<Book> FilterBooks(int authorId,int isbn, IEnumerable<BookCustomer> BookCustomers);
+    }
 }
