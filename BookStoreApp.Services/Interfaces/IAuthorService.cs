@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.Services.Interfaces
 {
-	public interface IAuthorService 
-	{
-		Task<AuthorDto> GetAuthorByIdAsync(int? id);
+    public interface IAuthorService 
+    {
+	  Task<AuthorDto> GetAuthorByIdAsync(int? id);
 
-		Task<IEnumerable<AuthorDto>> GetAllAuthorsAsync();
+	  Task<IEnumerable<AuthorDto>> GetAllAuthorsAsync();
 
-		Task CreateAuthorAsync(CreateAuthorDto createAuthorDto);
+	  Task CreateAuthorAsync(CreateAuthorDto createAuthorDto);
 
-		Task DeleteAuthorAsync(int? id);
+	  Task DeleteAuthorAsync(int? id);
 
-		Task UpdateAuthorAsync(CreateAuthorDto createAuthorDto, int? id);
-	}
+	  Task UpdateAuthorAsync(CreateAuthorDto createAuthorDto, int? id);
+    }
 }
