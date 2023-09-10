@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.Domain.Enums
 {
-	public enum Genre
-	{
-		Fantasy = 1,
-		Mystery = 2,
-		Thriller = 3
-	}
+   public enum Genre
+   {
+	Fantasy = 1,
+	Mystery = 2,
+	Thriller = 3
+   }
 }
