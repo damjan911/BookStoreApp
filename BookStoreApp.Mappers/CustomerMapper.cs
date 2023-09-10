@@ -8,26 +8,26 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.Mappers
 {
-	public static class CustomerMapper
-	{
-		public static CustomerDto MapToCustomerDto (this Customer customer)
+    public static class CustomerMapper
+    {
+	 public static CustomerDto MapToCustomerDto (this Customer customer)
+	 {
+		return new CustomerDto()
 		{
-			return new CustomerDto()
-			{
-				FirstName = customer.FirstName,
-				LastName = customer.LastName,
-				Address = customer.Address
-			};
-		}
+			FirstName = customer.FirstName,
+			LastName = customer.LastName,
+			Address = customer.Address
+		};
+	 }
 
-		public static Customer MapToCustomer (this CreateCustomerDto createCustomerDto)
-		{
-			return new Customer()
-			{
-				FirstName = createCustomerDto.FirstName,
-				LastName = createCustomerDto.LastName,
-				Address = createCustomerDto.Address
-			};
-		}
-	}
+	  public static Customer MapToCustomer (this CreateCustomerDto createCustomerDto)
+	  {
+		 return new Customer()
+		 {
+			FirstName = createCustomerDto.FirstName,
+			LastName = createCustomerDto.LastName,
+			Address = createCustomerDto.Address
+		 };
+	   }
+    }
 }
