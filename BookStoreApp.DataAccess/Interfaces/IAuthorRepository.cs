@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.DataAccess.Interfaces
 {
-	public interface IAuthorRepository : IRepository<Author>
-	{
-	}
+    public interface IAuthorRepository : IRepository<Author>
+    {
+    
+    }
 }
