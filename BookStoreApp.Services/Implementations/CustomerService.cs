@@ -11,64 +11,64 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.Services.Implementations
 {
-	public class CustomerService : ICustomerService
-	{
-		private readonly IRepository<Customer> _customerRepository;
+    public class CustomerService : ICustomerService
+    {
+	 private readonly IRepository<Customer> _customerRepository;
 
-        public CustomerService(IRepository<Customer> customerRepository)
-        {
-			_customerRepository = customerRepository;
-        }
+         public CustomerService(IRepository<Customer> customerRepository)
+         {
+	     _customerRepository = customerRepository;
+         }
 
-        public async Task CreateCustomerAsync(CreateCustomerDto customer)
+         public async Task CreateCustomerAsync(CreateCustomerDto customer)
+	 {
+		Customer customerEntity = customer.MapToCustomer();
+
+		await _customerRepository.CreateAsync(customerEntity);
+	 }
+
+	 public async Task DeleteCustomerAsync(int? id)
+	 {
+		await _customerRepository.DeleteAsync(id);
+	 }
+
+	 public async Task<IEnumerable<CustomerDto>> GetAllCustomersAsync()
+	 {
+		List<Customer> customer = await _customerRepository.GetAllAsync();
+
+		if (customer == null)
 		{
-			Customer customerEntity = customer.MapToCustomer();
-
-			await _customerRepository.CreateAsync(customerEntity);
+		     throw new NotImplementedException("Customer is null.");
 		}
 
-		public async Task DeleteCustomerAsync(int? id)
+		return customer.Select(customer=>customer.MapToCustomerDto()).ToList();
+	  }
+
+	  public async Task<CustomerDto> GetCustomerByIdAsync(int? id)
+	  {
+		Customer customer = await _customerRepository.GetByIdAsync(id);
+
+		if (customer == null)
 		{
-			await _customerRepository.DeleteAsync(id);
+		     throw new NotImplementedException("Customer is null.");
 		}
 
-		public async Task<IEnumerable<CustomerDto>> GetAllCustomersAsync()
+		 return customer.MapToCustomerDto();
+	   }
+
+	   public async Task UpdateCustomerAsync(CreateCustomerDto createCustomerDto, int? id)
+	   {
+		Customer customerDb = await _customerRepository.GetByIdAsync(id);
+
+		if (customerDb == null)
 		{
-			List<Customer> customer = await _customerRepository.GetAllAsync();
-
-			if (customer == null)
-			{
-				throw new NotImplementedException("Customer is null.");
-			}
-
-			return customer.Select(customer=>customer.MapToCustomerDto()).ToList();
+		      throw new NotImplementedException("Customer is null.");
 		}
 
-		public async Task<CustomerDto> GetCustomerByIdAsync(int? id)
-		{
-			Customer customer = await _customerRepository.GetByIdAsync(id);
+		 customerDb.FirstName = createCustomerDto.FirstName;
+		 customerDb.LastName = createCustomerDto.LastName;
+		 customerDb.Address = createCustomerDto.Address;
 
-			if (customer == null)
-			{
-				throw new NotImplementedException("Customer is null.");
-			}
-
-			return customer.MapToCustomerDto();
-		}
-
-		public async Task UpdateCustomerAsync(CreateCustomerDto createCustomerDto, int? id)
-		{
-			Customer customerDb = await _customerRepository.GetByIdAsync(id);
-
-			if (customerDb == null)
-			{
-				throw new NotImplementedException("Customer is null.");
-			}
-
-			customerDb.FirstName = createCustomerDto.FirstName;
-			customerDb.LastName = createCustomerDto.LastName;
-			customerDb.Address = createCustomerDto.Address;
-
-		}
-	}
+	    }
+      }
 }
