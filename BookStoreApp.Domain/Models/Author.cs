@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.Domain.Models
 {
-	public class Author
-	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-		[Required]
+   public class Author
+   {
+	[Key]
+	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+	public int Id { get; set; }
+	   
+	[Required]
+	public string FirstName { get; set; } = string.Empty;
+
+	[Required]
+	public string LastName { get; set; } = string.Empty;
 		
-		public string FirstName { get; set; } = string.Empty;
+	public string? City { get; set; }
 
-		[Required]
-		public string LastName { get; set; } = string.Empty;
-		
-		public string? City { get; set; }
-
-		public string? State { get; set; }
+	public string? State { get; set; }
 
 
-		public List<Book> Books = new List<Book>();
-	}
+	public List<Book> Books = new List<Book>();
+   }
 }
