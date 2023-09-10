@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.DTOs.CustomerDTOs
 {
-	public class CustomerDto
-	{
-		public string FirstName { get; set; } = string.Empty;
+   public class CustomerDto
+   {
+	 public string FirstName { get; set; } = string.Empty;
 
-		public string LastName { get; set; } = string.Empty;
+	 public string LastName { get; set; } = string.Empty;
 
-		public string? Address { get; set; }
-	}
+	 public string? Address { get; set; }
+    }
 }
