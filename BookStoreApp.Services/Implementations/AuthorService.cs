@@ -11,64 +11,64 @@ using System.Threading.Tasks;
 
 namespace BookStoreApp.Services.Implementations
 {
-	public class AuthorService : IAuthorService
-	{
-		private readonly IRepository<Author> _authorRepository;
+    public class AuthorService : IAuthorService
+    {
+	 private readonly IRepository<Author> _authorRepository;
 
-        public AuthorService(IRepository<Author> authorRepository)
-        {
+         public AuthorService(IRepository<Author> authorRepository)
+         {
             _authorRepository = authorRepository;
-        }
-        public async Task CreateAuthorAsync(CreateAuthorDto author)
-		{
-			Author authorEntity = author.MapToAuthor();
+         }
+         public async Task CreateAuthorAsync(CreateAuthorDto author)
+	 {
+	    Author authorEntity = author.MapToAuthor();
 
-			await _authorRepository.CreateAsync(authorEntity);
+	    await _authorRepository.CreateAsync(authorEntity);
+	 }
+
+	 public async Task DeleteAuthorAsync(int? id)
+	 {
+	     await _authorRepository.DeleteAsync(id);
+	 }
+
+	  public async Task<IEnumerable<AuthorDto>> GetAllAuthorsAsync()
+	  {
+		List<Author> author = await _authorRepository.GetAllAsync();
+
+		if(author == null)
+		{
+		     throw new NotImplementedException("Author is null.");
 		}
 
-		public async Task DeleteAuthorAsync(int? id)
-		{
-			await _authorRepository.DeleteAsync(id);
-		}
+		return author.Select(author => author.MapToAuthorDto()).ToList();
+	   }
 
-		public async Task<IEnumerable<AuthorDto>> GetAllAuthorsAsync()
-		{
-			List<Author> author = await _authorRepository.GetAllAsync();
+	    public async Task<AuthorDto> GetAuthorByIdAsync(int? id)
+	    {
+		  Author author = await _authorRepository.GetByIdAsync(id);
 
-			if(author == null)
-			{
-				throw new NotImplementedException("Author is null.");
-			}
+		  if (author == null)
+		  {
+			throw new NotImplementedException("Author is null.");
+		  }
 
-			return author.Select(author => author.MapToAuthorDto()).ToList();
-		}
+		  return author.MapToAuthorDto();
+	     }
 
-		public async Task<AuthorDto> GetAuthorByIdAsync(int? id)
-		{
-			Author author = await _authorRepository.GetByIdAsync(id);
+	    public async Task UpdateAuthorAsync(CreateAuthorDto createAuthorDto, int? id)
+	    {
+		 Author authorDb = await _authorRepository.GetByIdAsync(id);
 
-			if (author == null)
-			{
-				throw new NotImplementedException("Author is null.");
-			}
+		 if (authorDb == null)
+		 {
+		      throw new NotImplementedException("Author is null.");
+		 }
 
-			return author.MapToAuthorDto();
-		}
+		 authorDb.FirstName = createAuthorDto.FirstName;
+		 authorDb.LastName = createAuthorDto.LastName;
+		 authorDb.City = createAuthorDto.City;
+		 authorDb.State = createAuthorDto.State;
 
-		public async Task UpdateAuthorAsync(CreateAuthorDto createAuthorDto, int? id)
-		{
-			Author authorDb = await _authorRepository.GetByIdAsync(id);
-
-			if (authorDb == null)
-			{
-				throw new NotImplementedException("Author is null.");
-			}
-
-			authorDb.FirstName = createAuthorDto.FirstName;
-			authorDb.LastName = createAuthorDto.LastName;
-			authorDb.City = createAuthorDto.City;
-			authorDb.State = createAuthorDto.State;
-
-		}
-	}
+	    }
+	 }
 }
