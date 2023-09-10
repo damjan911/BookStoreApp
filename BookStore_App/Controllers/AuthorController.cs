@@ -69,8 +69,8 @@ namespace BookStore_App.Controllers
 			return BadRequest("Invalid input");
 		     }
 
-			await _authorService.CreateAuthorAsync(author);
-			return StatusCode(StatusCodes.Status201Created, "Author added");
+		     await _authorService.CreateAuthorAsync(author);
+		     return StatusCode(StatusCodes.Status201Created, "Author added");
 		    }
 		   catch (Exception)
 		    {
