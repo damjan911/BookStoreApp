@@ -79,7 +79,7 @@ One Author can write multiple Books, but each Book is written by only one Author
 
 2. Customer and Book Relationship
 
-Many customers can purchase multiple books, and each book can be purchased by multiple customers. This creates a many-to-many relationship between Customers and Books. Because here we have Many-to-Many Relationship we create a Junction Table which contains the Primary Key Columns of this two tables.
+Many customers can purchase multiple books, and each book can be purchased by multiple customers. This creates a many-to-many relationship between Customers and Books. Because here we have Many-to-Many Relationship we create a Junction Table which contains the Primary Key Columns of this two models.
 
 ```
     public class Book 
@@ -128,7 +128,7 @@ Many customers can purchase multiple books, and each book can be purchased by mu
 
 ## BookStoreApp.DataAccess
 
-DataAccess plays a major rule and it is a crucial component for interacting with databases or other data sources. Data access refers to the process of retrieving, manipulating, and persisting data from various sources, such as databases, external services, or file systems. Also on this Class Library we have a Repositories which contain all CRUD Operations that we need to manipulate with our Database.
+DataAccess plays a major rule and it is a crucial component for interacting with databases or other data sources. Data access refers to the process of retrieving, manipulating, and persisting data from various sources, such as databases, external services, or file systems. Also we have a Repositories which contain all CRUD Operations that we need to manipulate with our Database.
 
 ## BookStoreApp.DTOs
 
