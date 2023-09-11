@@ -1,6 +1,6 @@
 # Intership Application Task (BookStore_App)
 
-is made by Damjan Krstevski. 😃
+is made by Damjan Krstevski. 
 ___
 
 ##  Description of the Application 
