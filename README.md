@@ -7,7 +7,7 @@ ___
 
 #### This Application will serve as a platform for customers to browse and purchase books. It will also provide an administration interface for managing the inventory, authors, and customer orders. The application will help streamline the operations of the bookstore, making it easier to track sales, manage stock, and provide a user-friendly interface for customers to discover and purchase books.
 
-<ins> BookStore consists of five Class Libraries. That's are: </ins>
+<ins> BookStoreApp consists of six Class Libraries. That's are: </ins>
 
  - BookStoreApp.Domain
  - BookStoreApp.DataAccess
